@@ -1,14 +1,184 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>골퍼 성향 캐릭터 테스트</title>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#eef7f0;
+    text-align:center;
+    padding:20px;
+}
+.container{
+    max-width:700px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+button{
+    display:block;
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:#2e8b57;
+    color:white;
+    font-size:15px;
+}
+button:hover{ background:#256d46; }
+.resultBox{
+    text-align:left;
+    margin-top:20px;
+}
+h2{color:#2e8b57;}
+ul{padding-left:20px;}
+.restart{
+    background:#444;
+    margin-top:20px;
+}
+</style>
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+
+<div class="container">
+<h2>🏌️ 골퍼 성향 캐릭터 테스트</h2>
+<div id="question"></div>
+<div id="answers"></div>
+<div id="result"></div>
+</div>
+
+<script>
+
+// 20문항 동일
+const questions = [
+{q:"1. 라운딩에서 나는?", a:"동반자와 활발히 대화", t1:"E", b:"조용히 집중", t2:"I"},
+{q:"2. 새로운 모임에 가면?", a:"먼저 말 건다", t1:"E", b:"적응 후 말한다", t2:"I"},
+{q:"3. 에너지는?", a:"사람들과 있으면 상승", t1:"E", b:"혼자 있어야 회복", t2:"I"},
+{q:"4. 내기 제안이 오면?", a:"바로 수락", t1:"E", b:"신중히 고민", t2:"I"},
+{q:"5. 회식은?", a:"참석", t1:"E", b:"패스", t2:"I"},
+
+{q:"6. 코스 공략은?", a:"현장 감각", t1:"S", b:"전략 분석", t2:"N"},
+{q:"7. 연습 스타일은?", a:"반복 훈련", t1:"S", b:"이론 연구", t2:"N"},
+{q:"8. 새 코스는?", a:"가서 본다", t1:"S", b:"미리 조사", t2:"N"},
+{q:"9. 스윙 교정은?", a:"몸으로 익힘", t1:"S", b:"원리 이해", t2:"N"},
+{q:"10. 영상은?", a:"레슨 위주", t1:"S", b:"전략 분석", t2:"N"},
+
+{q:"11. 실수한 동반자에게?", a:"팩트 조언", t1:"T", b:"공감 위로", t2:"F"},
+{q:"12. OB가 나면?", a:"원인 분석", t1:"T", b:"멘탈 케어", t2:"F"},
+{q:"13. 스코어 vs 분위기?", a:"스코어", t1:"T", b:"분위기", t2:"F"},
+{q:"14. 내기 상황은?", a:"냉정", t1:"T", b:"관계 고려", t2:"F"},
+{q:"15. 피드백은?", a:"객관적 평가", t1:"T", b:"격려 중심", t2:"F"},
+
+{q:"16. 준비는?", a:"계획 철저", t1:"J", b:"즉흥", t2:"P"},
+{q:"17. 연습 루틴은?", a:"고정", t1:"J", b:"유동적", t2:"P"},
+{q:"18. 플레이 속도는?", a:"빠르게", t1:"J", b:"여유롭게", t2:"P"},
+{q:"19. 비 오면?", a:"강행", t1:"J", b:"상황 보자", t2:"P"},
+{q:"20. 시즌 목표는?", a:"명확 설정", t1:"J", b:"흐름 따라", t2:"P"}
+];
+
+let current=0;
+let score={E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0};
+
+function showQuestion(){
+    if(current>=questions.length){ showResult(); return; }
+    let q=questions[current];
+    document.getElementById("question").innerHTML="<h3>"+q.q+"</h3>";
+    document.getElementById("answers").innerHTML=
+    `<button onclick="answer('${q.t1}')">${q.a}</button>
+     <button onclick="answer('${q.t2}')">${q.b}</button>`;
+}
+
+function answer(type){
+    score[type]++;
+    current++;
+    showQuestion();
+}
+
+function showResult(){
+    let type=
+    (score.E>=score.I?"E":"I")+
+    (score.S>=score.N?"S":"N")+
+    (score.T>=score.F?"T":"F")+
+    (score.J>=score.P?"J":"P");
+
+const data={
+
+"ESTJ":{
+name:"🏆 필드의 전략 지휘관",
+desc:"승부욕과 조직력이 강한 리더형 골퍼",
+strength:["일관성 있는 플레이","목표 달성 능력","멘탈 안정"],
+weak:["융통성 부족","동반자에게 엄격"],
+tip:"📌 코스별 시뮬레이션 연습 + 숏게임 반복 훈련"
+},
+
+"INFP":{
+name:"🌸 감성 몰입형 아티스트",
+desc:"자기만의 리듬으로 플레이하는 힐링 골퍼",
+strength:["집중력","감각적 퍼팅","부드러운 스윙"],
+weak:["기복 심함","승부욕 약함"],
+tip:"📌 멘탈 루틴 만들기 + 3m 퍼팅 반복"
+},
+
+"ENTP":{
+name:"⚡ 변수 지배자",
+desc:"창의적이고 위기에서 빛나는 골퍼",
+strength:["위기 대처 능력","창의적 공략"],
+weak:["일관성 부족"],
+tip:"📌 상황별 트러블 샷 연습"
+},
+
+"ISTJ":{
+name:"📊 데이터 마스터",
+desc:"분석 중심의 정석 플레이어",
+strength:["정확도","루틴 관리"],
+weak:["과도한 계산"],
+tip:"📌 실전 라운딩 연습으로 감각 강화"
+}
+
+};
+
+// 기본값 처리
+if(!data[type]){
+data[type]={
+name:"⛳ 올라운드 플레이어",
+desc:"균형 잡힌 골퍼",
+strength:["안정감","무난한 실력"],
+weak:["강점 부족"],
+tip:"📌 자신의 약점 파트 집중 훈련"
+};
+}
+
+let resultHTML=`
+<div class="resultBox">
+<h2>${data[type].name}</h2>
+<p><strong>성향:</strong> ${data[type].desc}</p>
+
+<h3>✅ 장점</h3>
+<ul>${data[type].strength.map(s=>"<li>"+s+"</li>").join("")}</ul>
+
+<h3>⚠️ 약점</h3>
+<ul>${data[type].weak.map(s=>"<li>"+s+"</li>").join("")}</ul>
+
+<h3>🎯 추천 연습법</h3>
+<p>${data[type].tip}</p>
+
+<button class="restart" onclick="location.reload()">다시 테스트하기</button>
+</div>
+`;
+
+document.getElementById("question").innerHTML="";
+document.getElementById("answers").innerHTML="";
+document.getElementById("result").innerHTML=resultHTML;
+}
+
+showQuestion();
+
+</script>
 </body>
 </html>
