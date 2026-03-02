@@ -34,7 +34,7 @@ nav a:hover {
 }
 
 .container {
-    max-width: 800px; /* 너비 확장 및 통일 */
+    max-width: 1200px;
     margin: 0 auto 20px auto;
     background: white;
     padding: 30px;
