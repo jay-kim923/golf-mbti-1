@@ -39,7 +39,7 @@
             <a href="/about.html">소개</a>
             <a href="/privacy.html">개인정보처리방침</a>
         </nav>
-        <span id="auth-nav"></span>
+            <span id="auth-nav"></span>
     </header>
 
     <nav class="category-nav">
@@ -48,7 +48,7 @@
         <a href="wellness.html">골프건강검진</a>
         <a href="lifecare.html">골프라이프케어</a>
     </nav>
-        <span id="auth-nav"></span>
+            <span id="auth-nav"></span>
 
     <div class="container">
         <h2>📊 골프 MBTI 랭킹</h2>
@@ -66,7 +66,7 @@
             <a href="/privacy.html">개인정보처리방침</a>
             <a href="https://blog.naver.com/k31045" target="_blank">블로그</a>
         </nav>
-        <span id="auth-nav"></span>
+            <span id="auth-nav"></span>
     </footer>
 
     <script>
@@ -116,5 +116,23 @@
         window.onload = loadRanking;
     </script>
 
+<script>
+    function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        const authNav = document.getElementById("auth-nav");
+        if (isLoggedIn) {
+            authNav.innerHTML = `<a href="#" onclick="logout()" class="nav-auth-btn" style="margin-left:10px;">로그아웃</a>`;
+        } else {
+            authNav.innerHTML = `<a href="login.html" class="nav-auth-btn" style="margin-left:10px;">로그인</a>`;
+        }
+    }
+    function logout() {
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("currentUser");
+        alert("로그아웃되었습니다.");
+        location.reload();
+    }
+    checkAuth();
+</script>
 </body>
 </html>

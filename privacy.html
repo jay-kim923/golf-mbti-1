@@ -15,6 +15,7 @@
             <a href="/about.html">소개</a>
             <a href="/privacy.html">개인정보처리방침</a>
         </nav>
+            <span id="auth-nav"></span>
     </header>
     <div class="container">
         <h2>개인정보처리방침</h2>
@@ -71,6 +72,25 @@
             <a href="/privacy.html">개인정보처리방침</a>
             <a href="https://blog.naver.com/k31045" target="_blank">블로그</a>
         </nav>
+            <span id="auth-nav"></span>
     </footer>
+<script>
+    function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        const authNav = document.getElementById("auth-nav");
+        if (isLoggedIn) {
+            authNav.innerHTML = `<a href="#" onclick="logout()" class="nav-auth-btn" style="margin-left:10px;">로그아웃</a>`;
+        } else {
+            authNav.innerHTML = `<a href="login.html" class="nav-auth-btn" style="margin-left:10px;">로그인</a>`;
+        }
+    }
+    function logout() {
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("currentUser");
+        alert("로그아웃되었습니다.");
+        location.reload();
+    }
+    checkAuth();
+</script>
 </body>
 </html>

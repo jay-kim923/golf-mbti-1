@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,8 +17,8 @@
             <a href="/">테스트</a>
             <a href="/about.html">소개</a>
             <a href="/privacy.html">개인정보처리방침</a>
+            <span id="auth-nav"></span>
         </nav>
-        <span id="auth-nav"></span>
     </header>
 
     <nav class="category-nav">
@@ -28,7 +27,6 @@
         <a href="wellness.html">골프건강검진</a>
         <a href="lifecare.html">골프라이프케어</a>
     </nav>
-        <span id="auth-nav"></span>
 
     <div class="container">
         <div id="test-container">
@@ -56,16 +54,7 @@
         <h2>💬 댓글</h2>
         <div id="disqus_thread"></div>
         <script>
-            /**
-            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-            /*
-            var disqus_config = function () {
-            this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-            };
-            */
-            (function() { // DON'T EDIT BELOW THIS LINE
+            (function() {
             var d = document, s = d.createElement('script');
             s.src = 'https://golf-mbti-1.disqus.com/embed.js';
             s.setAttribute('data-timestamp', +new Date());
@@ -82,10 +71,26 @@
             <a href="/privacy.html">개인정보처리방침</a>
             <a href="https://blog.naver.com/k31045" target="_blank">블로그</a>
         </nav>
-        <span id="auth-nav"></span>
     </footer>
 
     <script>
+        function checkAuth() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const authNav = document.getElementById('auth-nav');
+            if (isLoggedIn) {
+                authNav.innerHTML = `<a href="#" onclick="logout()" class="nav-auth-btn" style="margin-left:10px;">로그아웃</a>`;
+            } else {
+                authNav.innerHTML = `<a href="login.html" class="nav-auth-btn" style="margin-left:10px;">로그인</a>`;
+            }
+        }
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
+            alert('로그아웃되었습니다.');
+            location.reload();
+        }
+        checkAuth();
+
         const questions = [
             {q:"1. 라운딩에서 나는?", a:"동반자와 활발히 대화", t1:"E", b:"조용히 집중", t2:"I"},
             {q:"2. 새로운 모임에 가면?", a:"먼저 말 건다", t1:"E", b:"적응 후 말한다", t2:"I"},
@@ -190,8 +195,6 @@
             let counts = JSON.parse(localStorage.getItem('mbti_counts') || '{}');
             counts[type] = (counts[type] || 0) + 1;
             localStorage.setItem('mbti_counts', JSON.stringify(counts));
-            
-            // 실시간 서버 연동이 필요한 경우 여기에 API 호출 코드를 추가할 수 있습니다.
             console.log("Result saved:", type);
         }
     </script>
