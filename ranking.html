@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>골프 MBTI 랭킹 - 골퍼 성향 캐릭터 테스트</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .ranking-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .ranking-name { font-weight: bold; font-size: 1.1em; }
+        .ranking-count { color: #2c3e50; }
+        .progress-bar {
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+            flex-grow: 1;
+            margin: 0 15px;
+        }
+        .progress { height: 100%; background: #3498db; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><a href="/">골퍼 성향 캐릭터 테스트</a></h1>
+        <nav>
+            <a href="/">테스트</a>
+            <a href="/about.html">소개</a>
+            <a href="/privacy.html">개인정보처리방침</a>
+        </nav>
+    </header>
+
+    <nav class="category-nav">
+        <a href="ranking.html" class="active">골프mbti 랭킹</a>
+        <a href="#">mbti별 골프레슨</a>
+        <a href="#">골프건강검진</a>
+        <a href="#">골프라이프케어</a>
+    </nav>
+
+    <div class="container">
+        <h2>📊 골프 MBTI 랭킹</h2>
+        <p>어떤 성향의 골퍼가 가장 많을까요? 실시간 랭킹을 확인해보세요!</p>
+        <div id="ranking-list">
+            <!-- 랭킹 데이터가 여기에 표시됩니다 -->
+            <p>데이터를 불러오는 중...</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 골퍼 성향 캐릭터 테스트. All Rights Reserved.</p>
+        <nav>
+            <a href="/about.html">소개</a>
+            <a href="/privacy.html">개인정보처리방침</a>
+            <a href="https://blog.naver.com/k31045" target="_blank">블로그</a>
+        </nav>
+    </footer>
+
+    <script>
+        // 이 데이터는 실제 서비스에서는 Firestore 등에서 가져와야 합니다.
+        // 현재는 localStorage를 이용한 예시를 구현합니다.
+        
+        function loadRanking() {
+            let counts = JSON.parse(localStorage.getItem('mbti_counts') || '{}');
+            
+            // 기본 데이터 (데이터가 없을 때 보여줄 예시)
+            const defaultData = {
+                "ESTJ": 124,
+                "INFP": 89,
+                "ENTP": 76,
+                "ISTJ": 65,
+                "ENFP": 54,
+                "ISFJ": 43
+            };
+
+            // 기존 데이터와 합치기
+            for (let type in defaultData) {
+                if (!counts[type]) counts[type] = defaultData[type];
+            }
+
+            const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+            const total = Object.values(counts).reduce((a, b) => a + b, 0);
+
+            const listEl = document.getElementById('ranking-list');
+            listEl.innerHTML = '';
+
+            sorted.forEach(([type, count], index) => {
+                const percentage = total > 0 ? (count / total * 100).toFixed(1) : 0;
+                const div = document.createElement('div');
+                div.className = 'ranking-item';
+                div.innerHTML = `
+                    <div style="width: 30px;">${index + 1}</div>
+                    <div class="ranking-name" style="width: 80px;">${type}</div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: ${percentage}%"></div>
+                    </div>
+                    <div class="ranking-count">${count}명 (${percentage}%)</div>
+                `;
+                listEl.appendChild(div);
+            });
+        }
+
+        window.onload = loadRanking;
+    </script>
+
+</body>
+</html>
