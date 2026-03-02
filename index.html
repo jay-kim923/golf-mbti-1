@@ -19,7 +19,7 @@ body{
     border-radius:15px;
     box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
-button{
+button, .form-button{
     display:block;
     width:100%;
     padding:12px;
@@ -30,8 +30,9 @@ button{
     background:#2e8b57;
     color:white;
     font-size:15px;
+    box-sizing: border-box;
 }
-button:hover{ background:#256d46; }
+button:hover, .form-button:hover{ background:#256d46; }
 .resultBox{
     text-align:left;
     margin-top:20px;
@@ -42,6 +43,28 @@ ul{padding-left:20px;}
     background:#444;
     margin-top:20px;
 }
+#contact-form input,
+#contact-form textarea {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+}
+#contact-form textarea {
+    height: 120px;
+    resize: vertical;
+}
+.form-button {
+    background: #6a7a89;
+}
+.form-button:hover {
+    background: #505d69;
+}
 </style>
 </head>
 <body>
@@ -51,6 +74,15 @@ ul{padding-left:20px;}
 <div id="question"></div>
 <div id="answers"></div>
 <div id="result"></div>
+</div>
+
+<div class="container" style="margin-top: 20px;">
+  <h2>🤝 제휴 문의</h2>
+  <form id="contact-form" action="https://formspree.io/f/xzdaqlwz" method="POST">
+    <input type="email" name="email" placeholder="이메일 주소" required>
+    <textarea name="message" placeholder="문의 내용" required></textarea>
+    <button type="submit" class="form-button">보내기</button>
+  </form>
 </div>
 
 <script>
@@ -86,7 +118,18 @@ let current=0;
 let score={E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0};
 
 function showQuestion(){
-    if(current>=questions.length){ showResult(); return; }
+    // 결과 표시 중이거나 테스트가 끝나면 질문을 표시하지 않음
+    if(document.getElementById("result").innerHTML.trim() !== "" || current >= questions.length) {
+        // 첫 로드 시, 결과가 없으면 테스트 시작
+        if (document.getElementById("result").innerHTML.trim() === "" && current === 0) {
+            let q=questions[current];
+            document.getElementById("question").innerHTML="<h3>"+q.q+"</h3>";
+            document.getElementById("answers").innerHTML=
+            `<button onclick="answer('${q.t1}')">${q.a}</button>
+             <button onclick="answer('${q.t2}')">${q.b}</button>`;
+        }
+        return; 
+    }
     let q=questions[current];
     document.getElementById("question").innerHTML="<h3>"+q.q+"</h3>";
     document.getElementById("answers").innerHTML=
@@ -94,10 +137,15 @@ function showQuestion(){
      <button onclick="answer('${q.t2}')">${q.b}</button>`;
 }
 
+
 function answer(type){
     score[type]++;
     current++;
-    showQuestion();
+    if(current < questions.length){
+        showQuestion();
+    } else {
+        showResult();
+    }
 }
 
 function showResult(){
@@ -177,6 +225,7 @@ document.getElementById("answers").innerHTML="";
 document.getElementById("result").innerHTML=resultHTML;
 }
 
+// 스크립트 시작 시 첫 질문 표시
 showQuestion();
 
 </script>
