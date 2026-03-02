@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>골프 건강검진 - 골퍼 성향 캐릭터 테스트</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .wellness-header {
+            background: linear-gradient(135deg,#0f5132,#198754);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        .wellness-header h1 { font-size: 28px; margin-bottom: 15px; color: white; }
+        .wellness-header p { font-size: 16px; max-width: 700px; margin: auto; line-height: 1.6; }
+        .section-title { text-align: center; font-size: 22px; margin-bottom: 30px; color: #0f5132; font-weight: bold; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); text-align: left; }
+        .card h3 { margin-bottom: 12px; color: #198754; font-size: 18px; }
+        .cta { text-align: center; padding: 40px 20px; background: #e9f5ee; border-radius: 15px; margin-top: 40px; }
+        .wellness-btn { padding: 12px 25px; font-size: 16px; border: none; border-radius: 50px; background: #198754; color: white; cursor: pointer; transition: 0.3s; width: auto; display: inline-block; }
+        .wellness-btn:hover { background: #145c32; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="/">골퍼 성향 캐릭터 테스트</a></h1>
+        <nav id="main-nav">
+            <a href="/">테스트</a>
+            <a href="/about.html">소개</a>
+            <a href="/privacy.html">개인정보처리방침</a>
+            <span id="auth-nav"></span>
+        </nav>
+    </header>
+
+    <nav class="category-nav">
+        <a href="ranking.html">골프mbti 랭킹</a>
+        <a href="lessons.html">mbti별 골프레슨</a>
+        <a href="wellness.html" class="active">골프건강검진</a>
+        <a href="#">골프라이프케어</a>
+    </nav>
+
+    <div class="container" style="padding: 0; background: transparent; box-shadow: none;">
+        <div class="wellness-header">
+            <h1>🏌️ 골프 건강검진 프로그램</h1>
+            <p>골프 통증, 반복되는 부상, 불편한 스윙… 이제는 참지 말고 정확하게 점검하세요. 골프 전문 의료진과 함께 관절·근육 상태를 검사하고 당신의 스윙에 맞는 신체 솔루션을 제공합니다.</p>
+        </div>
+
+        <section style="padding: 20px 0;">
+            <div class="section-title">📋 프로그램 구성</div>
+            <div class="cards">
+                <div class="card">
+                    <h3>🦴 관절·근육 정밀 검사</h3>
+                    <p>어깨, 팔꿈치, 허리, 무릎 등 골퍼에게 많이 발생하는 부위를 중심으로 정형외과 전문의가 직접 진단합니다.</p>
+                </div>
+                <div class="card">
+                    <h3>🏃 동작 분석 검사</h3>
+                    <p>스윙과 연결된 움직임을 기반으로 가동범위, 근력 밸런스, 체형 정렬을 분석하여 부상 위험 요소를 체크합니다.</p>
+                </div>
+                <div class="card">
+                    <h3>🏥 전문 병원 연계</h3>
+                    <p>골프 통증에 특화된 전문의가 있는 병원들과 연계하여 정확한 진단과 치료 방향을 안내합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section style="padding: 20px 0;">
+            <div class="section-title">🎯 이런 분께 추천합니다</div>
+            <div class="cards">
+                <div class="card">
+                    <h3>⚠️ 반복되는 통증</h3>
+                    <p>라운딩 후 허리, 팔꿈치, 어깨 통증이 반복되는 분</p>
+                </div>
+                <div class="card">
+                    <h3>📉 퍼포먼스 저하</h3>
+                    <p>스윙 밸런스가 깨지고 비거리 감소를 느끼는 분</p>
+                </div>
+                <div class="card">
+                    <h3>🚀 체계적 관리 희망</h3>
+                    <p>골프를 오래 즐기기 위해 몸부터 관리하고 싶은 분</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <h2>🧬 곧 시작됩니다</h2>
+            <p>골프 웰니스 구독 서비스로 정기 건강 체크 + 맞춤 관리 프로그램을 제공할 예정입니다.</p>
+            <br>
+            <button class="wellness-btn" onclick="comingSoon()">구독 준비중</button>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 골퍼 성향 캐릭터 테스트. All Rights Reserved.</p>
+        <nav>
+            <a href="/about.html">소개</a>
+            <a href="/privacy.html">개인정보처리방침</a>
+            <a href="https://blog.naver.com/k31045" target="_blank">블로그</a>
+        </nav>
+    </footer>
+
+    <script>
+        function checkAuth() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const authNav = document.getElementById('auth-nav');
+            if (isLoggedIn) {
+                authNav.innerHTML = `<a href="#" onclick="logout()" class="nav-auth-btn">로그아웃</a>`;
+            } else {
+                authNav.innerHTML = `<a href="login.html" class="nav-auth-btn">로그인</a>`;
+            }
+        }
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
+            alert('로그아웃되었습니다.');
+            location.reload();
+        }
+        function comingSoon(){
+            alert("현재 구독 서비스 준비중입니다.
+곧 오픈 예정입니다!");
+        }
+        checkAuth();
+    </script>
+</body>
+</html>

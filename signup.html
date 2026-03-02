@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 - 골퍼 성향 캐릭터 테스트</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1><a href="/">골퍼 성향 캐릭터 테스트</a></h1>
+        <nav>
+            <a href="/">테스트</a>
+            <a href="/about.html">소개</a>
+            <a href="/privacy.html">개인정보처리방침</a>
+        </nav>
+    </header>
+
+    <div class="container auth-container">
+        <h2>📝 회원가입</h2>
+        <form class="auth-form" id="signup-form">
+            <input type="email" id="signup-email" placeholder="이메일 주소" required>
+            <input type="password" id="signup-password" placeholder="비밀번호" required>
+            <input type="password" id="signup-confirm" placeholder="비밀번호 확인" required>
+            <button type="submit" class="form-button">가입하기</button>
+        </form>
+        <a href="login.html" class="auth-link">이미 계정이 있으신가요? 로그인</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 골퍼 성향 캐릭터 테스트. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const confirm = document.getElementById('signup-confirm').value;
+
+            if (password !== confirm) {
+                alert('비밀번호가 일치하지 않습니다.');
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            if (users.some(u => u.email === email)) {
+                alert('이미 가입된 이메일입니다.');
+                return;
+            }
+
+            users.push({ email, password });
+            localStorage.setItem('users', JSON.stringify(users));
+            alert('회원가입이 완료되었습니다! 로그인해주세요.');
+            location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>

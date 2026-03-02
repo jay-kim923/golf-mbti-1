@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 - 골퍼 성향 캐릭터 테스트</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1><a href="/">골퍼 성향 캐릭터 테스트</a></h1>
+        <nav>
+            <a href="/">테스트</a>
+            <a href="/about.html">소개</a>
+            <a href="/privacy.html">개인정보처리방침</a>
+        </nav>
+    </header>
+
+    <div class="container auth-container">
+        <h2>🔑 로그인</h2>
+        <form class="auth-form" id="login-form">
+            <input type="email" id="login-email" placeholder="이메일 주소" required>
+            <input type="password" id="login-password" placeholder="비밀번호" required>
+            <button type="submit" class="form-button">로그인하기</button>
+        </form>
+        <a href="signup.html" class="auth-link">계정이 없으신가요? 회원가입</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 골퍼 성향 캐릭터 테스트. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('currentUser', email);
+                alert('로그인되었습니다!');
+                location.href = 'lessons.html';
+            } else {
+                alert('이메일 또는 비밀번호가 올바르지 않습니다.');
+            }
+        });
+    </script>
+</body>
+</html>
