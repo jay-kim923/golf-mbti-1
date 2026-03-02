@@ -42,6 +42,15 @@ nav a:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
+.wide-container {
+    max-width: 900px; /* 더 넓은 컨테이너 */
+    margin: 0 auto 20px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
 .main-content {
     flex: 1;
 }
@@ -64,6 +73,14 @@ nav a:hover {
 
 .page-content a {
     color: #2e8b57;
+}
+
+#start-btn {
+    display: inline-block;
+    width: auto;
+    padding: 15px 30px;
+    font-size: 18px;
+    margin-top: 20px;
 }
 
 button, .form-button {
@@ -128,6 +145,10 @@ ul {
 
 .form-button:hover {
     background: #505d69;
+}
+
+.hidden {
+    display: none;
 }
 
 footer {
