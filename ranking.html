@@ -34,8 +34,9 @@
 
     <header>
         <h1><a href="/">골퍼 성향 캐릭터 테스트</a></h1>
-        <nav>
+        <nav id="main-nav">
             <a href="/">테스트</a>
+            <a href="/magazine.html">매거진</a>
             <a href="/about.html">소개</a>
             <a href="/privacy.html">개인정보처리방침</a>
         </nav>
@@ -45,8 +46,8 @@
     <nav class="category-nav">
         <a href="ranking.html" class="active">골프MBTI 랭킹</a>
         <a href="lessons.html">MBTI 레슨프로 찾기</a>
+        <a href="magazine.html">골프 매거진</a>
         <a href="wellness.html">골프건강검진</a>
-        <a href="lifecare.html">골프라이프케어</a>
     </nav>
             <span id="auth-nav"></span>
 
@@ -70,13 +71,9 @@
     </footer>
 
     <script>
-        // 이 데이터는 실제 서비스에서는 Firestore 등에서 가져와야 합니다.
-        // 현재는 localStorage를 이용한 예시를 구현합니다.
-        
         function loadRanking() {
             let counts = JSON.parse(localStorage.getItem('mbti_counts') || '{}');
             
-            // 기본 데이터 (데이터가 없을 때 보여줄 예시)
             const defaultData = {
                 "ESTJ": 124,
                 "INFP": 89,
@@ -86,7 +83,6 @@
                 "ISFJ": 43
             };
 
-            // 기존 데이터와 합치기
             for (let type in defaultData) {
                 if (!counts[type]) counts[type] = defaultData[type];
             }
