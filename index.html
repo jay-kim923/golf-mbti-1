@@ -1,4 +1,4 @@
-gem<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -17,8 +17,8 @@ gem<!DOCTYPE html>
             <a href="/">테스트</a>
             <a href="/magazine.html">매거진</a>
             <a href="/about.html">소개</a>
-            <a href="/privacy.html">개인정보처리방침</a>
-            <span id="auth-nav"></span>
+            <a href="/contact.html">문의</a>
+            <a href="/privacy.html">개인정보</a>
         </nav>
     </header>
 
@@ -26,7 +26,7 @@ gem<!DOCTYPE html>
         <a href="ranking.html">골프MBTI 랭킹</a>
         <a href="lessons.html">MBTI 레슨프로 찾기</a>
         <a href="magazine.html">골프 매거진</a>
-        <a href="wellness.html">골프건강검진</a>
+        <a href="wellness.html">골프건강가이드</a>
     </nav>
 
     <div class="container">
@@ -42,17 +42,8 @@ gem<!DOCTYPE html>
         </div>
     </div>
 
-    <div class="container" style="margin-top: 20px;">
-        <h2>🤝 제휴 문의</h2>
-        <form id="contact-form" action="https://formspree.io/f/xzdaqlwz" method="POST">
-            <input type="email" name="email" placeholder="이메일 주소" required>
-            <textarea name="message" placeholder="문의 내용" required></textarea>
-            <button type="submit" class="form-button">보내기</button>
-        </form>
-    </div>
-
     <div class="container" style="margin-top: 20px; text-align: left;">
-        <h2>💬 댓글</h2>
+        <h2>💬 댓글 및 커뮤니티</h2>
         <div id="disqus_thread"></div>
         <script>
             (function() {
@@ -69,29 +60,13 @@ gem<!DOCTYPE html>
         <p>&copy; 2024 골퍼 성향 캐릭터 테스트. All Rights Reserved.</p>
         <nav>
             <a href="/about.html">소개</a>
+            <a href="/contact.html">문의</a>
+            <a href="/terms.html">이용약관</a>
             <a href="/privacy.html">개인정보처리방침</a>
-            <a href="https://blog.naver.com/k31045" target="_blank">블로그</a>
         </nav>
     </footer>
 
     <script>
-        function checkAuth() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-            const authNav = document.getElementById('auth-nav');
-            if (isLoggedIn) {
-                authNav.innerHTML = `<a href="#" onclick="logout()" class="nav-auth-btn" style="margin-left:10px;">로그아웃</a>`;
-            } else {
-                authNav.innerHTML = `<a href="login.html" class="nav-auth-btn" style="margin-left:10px;">로그인</a>`;
-            }
-        }
-        function logout() {
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('currentUser');
-            alert('로그아웃되었습니다.');
-            location.reload();
-        }
-        checkAuth();
-
         const questions = [
             {q:"1. 라운딩에서 나는?", a:"동반자와 활발히 대화", t1:"E", b:"조용히 집중", t2:"I"},
             {q:"2. 새로운 모임에 가면?", a:"먼저 말 건다", t1:"E", b:"적응 후 말한다", t2:"I"},
@@ -172,16 +147,6 @@ gem<!DOCTYPE html>
                 "INFP": { name: "🌸 감성 몰입형 아티스트 (INFP)", desc: "자기만의 리듬으로 플레이하는 힐링 골퍼", strength: ["집중력", "감각적 퍼팅", "부드러운 스윙"], weak: ["기복 심함", "승부욕 약함"], tip: "📌 멘탈 루틴 만들기 + 3m 퍼팅 반복" }
             };
 
-            if (!data[type]) {
-                data[type] = {
-                    name: "⛳ 올라운드 플레이어",
-                    desc: "균형 잡힌 골퍼",
-                    strength: ["안정감", "무난한 실력"],
-                    weak: ["강점 부족"],
-                    tip: "📌 자신의 약점 파트 집중 훈련"
-                };
-            }
-
             let resultHTML = `
                 <div class="resultBox">
                     <h2>${data[type].name}</h2>
@@ -208,10 +173,8 @@ gem<!DOCTYPE html>
             let counts = JSON.parse(localStorage.getItem('mbti_counts') || '{}');
             counts[type] = (counts[type] || 0) + 1;
             localStorage.setItem('mbti_counts', JSON.stringify(counts));
-            console.log("Result saved:", type);
         }
     </script>
 
 </body>
 </html>
-

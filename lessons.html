@@ -7,38 +7,40 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header>
         <h1><a href="/">골퍼 성향 캐릭터 테스트</a></h1>
-        <nav id="main-nav">
+        <nav>
             <a href="/">테스트</a>
             <a href="/magazine.html">매거진</a>
             <a href="/about.html">소개</a>
-            <a href="/privacy.html">개인정보처리방침</a>
+            <a href="/contact.html">문의</a>
+            <a href="/privacy.html">개인정보</a>
         </nav>
-            <span id="auth-nav"></span>
     </header>
 
     <nav class="category-nav">
         <a href="ranking.html">골프MBTI 랭킹</a>
         <a href="lessons.html" class="active">MBTI 레슨프로 찾기</a>
         <a href="magazine.html">골프 매거진</a>
-        <a href="wellness.html">골프건강검진</a>
+        <a href="wellness.html">골프건강가이드</a>
     </nav>
-            <span id="auth-nav"></span>
 
     <div class="container">
-        <h2>📍 지역별 골프 프로 레슨</h2>
-        <p>자신의 MBTI 성향에 맞는 최적의 레슨을 제공하는 지역별 프로님들을 만나보세요.</p>
-        <p style="font-size: 0.9em; color: #666;">* 지역별 상세 프로 정보는 로그인 후 확인 가능합니다.</p>
+        <h2>📍 지역별 골프 프로 레슨 안내</h2>
+        <p>자신의 MBTI 성향에 맞는 최적의 레슨을 제공하는 지역별 전문 프로님들의 정보를 확인하세요.</p>
         
-        <div class="region-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
-            <button class="form-button" onclick="goToRegion('lessons-seoul.html')">서울 / 경기</button>
-            <button class="form-button" onclick="goToRegion('lessons-chungcheong.html')">충청도</button>
-            <button class="form-button" onclick="goToRegion('lessons-jeolla.html')">전라도</button>
-            <button class="form-button" onclick="goToRegion('lessons-gangwon.html')">강원도</button>
-            <button class="form-button" onclick="goToRegion('lessons-gyeongsang.html')">경상도</button>
-            <button class="form-button" onclick="goToRegion('lessons-jeju.html')">제주도</button>
+        <div class="region-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px;">
+            <button class="form-button" onclick="location.href='lessons-seoul.html'">서울 / 경기</button>
+            <button class="form-button" onclick="location.href='lessons-chungcheong.html'">충청도</button>
+            <button class="form-button" onclick="location.href='lessons-jeolla.html'">전라도</button>
+            <button class="form-button" onclick="location.href='lessons-gangwon.html'">강원도</button>
+            <button class="form-button" onclick="location.href='lessons-gyeongsang.html'">경상도</button>
+            <button class="form-button" onclick="location.href='lessons-jeju.html'">제주도</button>
+        </div>
+
+        <div style="margin-top: 40px; text-align: left; padding: 20px; background: #f9f9f9; border-radius: 10px;">
+            <h3>💡 왜 MBTI 맞춤 레슨인가요?</h3>
+            <p>사람마다 정보를 받아들이고 신체를 사용하는 방식이 다릅니다. 성향에 맞는 레슨은 학습 속도를 2배 이상 높여주며, 골프에 대한 흥미를 지속시키는 핵심 요소입니다.</p>
         </div>
     </div>
 
@@ -46,42 +48,10 @@
         <p>&copy; 2024 골퍼 성향 캐릭터 테스트. All Rights Reserved.</p>
         <nav>
             <a href="/about.html">소개</a>
+            <a href="/contact.html">문의</a>
+            <a href="/terms.html">이용약관</a>
             <a href="/privacy.html">개인정보처리방침</a>
-            <a href="https://blog.naver.com/k31045" target="_blank">블로그</a>
         </nav>
-            <span id="auth-nav"></span>
     </footer>
-
-    <script>
-        function checkAuth() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-            const authNav = document.getElementById('auth-nav');
-            if (isLoggedIn) {
-                authNav.innerHTML = `<a href="#" onclick="logout()" class="nav-auth-btn">로그아웃</a>`;
-            } else {
-                authNav.innerHTML = `<a href="login.html" class="nav-auth-btn">로그인</a>`;
-            }
-        }
-
-        function logout() {
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('currentUser');
-            alert('로그아웃되었습니다.');
-            location.reload();
-        }
-
-        function goToRegion(page) {
-            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-            if (isLoggedIn) {
-                location.href = page;
-            } else {
-                alert('지역별 프로 정보는 회원 전용 서비스입니다. 로그인 후 이용해주세요.');
-                location.href = 'login.html';
-            }
-        }
-
-        checkAuth();
-    </script>
-
 </body>
 </html>
